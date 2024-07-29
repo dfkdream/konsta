@@ -21,6 +21,7 @@
   // Button props
   export let type = undefined;
   export let value = undefined;
+  export let onClick = undefined;
 
   export let linkProps = {};
 
@@ -58,10 +59,10 @@
     (v) => (c = v)
   );
 
-  $: isLink = !!href || href === '';
-  $: hrefComputed =
+  const isLink = !!href || href === '';
+  const hrefComputed =
     !isLink || href === true || href === false ? undefined : href || '';
-  $: buttonAttrs = { href: hrefComputed, target, type, value, ...linkProps };
+  const buttonAttrs = { href: hrefComputed, target, type, value, ...linkProps };
 
   const ButtonComponent = isLink ? linkComponent : 'button';
 </script>
@@ -73,6 +74,7 @@
       this={ButtonComponent}
       bind:this={rippleEl.current}
       class={c.button}
+      on:click={onClick}
       {...buttonAttrs}
     >
       <slot />
