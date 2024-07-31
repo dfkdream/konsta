@@ -128,4 +128,12 @@
       <Button disabled clear>Clear</Button>
     </div>
   </Block>
+
+  <BlockTitle>Buttons with onClick handlers</BlockTitle>
+  <Block strong outlineIos>
+    <div class="grid grid-cols-2 gap-x-4">
+      <Button onClick={()=>{alert("Hello!")}}>Click Me!</Button>
+      <Button class="k-color-brand-red" onClick={()=>{alert("Hi!")}}>Click Me!</Button>
+    </div>
+  </Block>
 </Page>

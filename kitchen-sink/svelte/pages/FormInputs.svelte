@@ -23,6 +23,9 @@
   const onDemoValueClear = () => {
     demoValue = '';
   };
+
+  let bindedValue = "";
+  let bindedSelectValue = "Option 1";
 </script>
 
 <Page>
@@ -342,4 +345,31 @@
 
     <ListInput type="url" placeholder="URL" info="Your website URL" />
   </List>
+
+  <BlockTitle>Binded Inputs</BlockTitle>
+  <List strongIos insetIos>
+    <ListInput label="Text" type="text" placeholder="Enter something" bind:value={bindedValue} />
+    <ListInput label="Password" type="password" placeholder="Enter something" bind:value={bindedValue} />
+    <ListInput label="Email" type="email" placeholder="Enter something" bind:value={bindedValue} />
+    <ListInput label="Validation" type="text" placeholder="Enter something" bind:value={bindedValue}
+      error={!bindedValue.trim()?"Please enter something":""}
+    />
+  </List>
+
+  <BlockTitle>Binded Select</BlockTitle>
+  <List strongIos insetIos>
+    <ListInput
+      label="Select"
+      type="select"
+      dropdown
+      defaultValue="Option 1"
+      placeholder="Please choose..."
+      bind:value={bindedSelectValue}
+    >
+      <option value="Option 1">Option 1</option>
+      <option value="Option 2">Option 2</option>
+    </ListInput>
+    <ListInput label="Current selection" type="text" placeholder="Enter something" bind:value={bindedSelectValue} />
+  </List>
+
 </Page>
