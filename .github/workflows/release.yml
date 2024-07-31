@@ -1,0 +1,68 @@
+name: Build and create release
+
+on:
+  push:
+    branches:
+      - 'main'
+    tags:
+      - 'v*'
+
+jobs:
+  build_package:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build
+        run: npm run build
+
+      - name: Create tarball
+        run: tar -C package -czf "release-${{ github.ref }}.tar.gz" .
+
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: release-tarball
+          path: release-${{ github.ref }}.tar.gz
+
+  release:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Download artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: release-tarball
+
+      - name: Create release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ github.ref }}
+          release_name: Release ${{ github.ref }}
+          draft: false
+          prerelease: false
+
+      - name: Upload Release Asset
+        id: upload-release-asset
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: release-${{ github.ref }}.tar.gz
+          asset_name: release-${{ github.ref }}.tar.gz
+          asset_content_type: application/x-gzip
