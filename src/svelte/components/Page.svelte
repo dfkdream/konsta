@@ -25,8 +25,10 @@
     className,
     (v) => (c = v)
   );
+
+  $: document.body.className = c.base;
 </script>
 
-<svelte:element this={component} class={c.base} {...$$restProps}>
+<svelte:element this={component} {...$$restProps}>
   <slot />
 </svelte:element>

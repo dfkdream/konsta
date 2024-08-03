@@ -6,7 +6,7 @@ export const AppClasses = (props, currentTheme, classes) => {
   return cls(
     currentTheme === 'ios' && `k-ios`,
     currentTheme === 'material' && 'k-material',
-    'k-app w-full h-full min-h-screen',
+    'k-app',
     safeAreas && 'safe-areas',
     positionClass('relative', classes),
     classes
