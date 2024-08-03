@@ -103,7 +103,7 @@
 
   const getScrollEl = () => {
     if (typeof scrollEl === 'undefined') {
-      return elRef && elRef.parentNode;
+      return document
     }
     return scrollEl || scrollEl;
   };
@@ -114,6 +114,13 @@
         target: getScrollEl(),
       };
     }
+
+    if (e.target instanceof Document){
+      e = {
+        target: document.documentElement,
+      };
+    }
+
     const { scrollTop } = e.target;
     if (!isScrollable) {
       if (wasScrollable) {
