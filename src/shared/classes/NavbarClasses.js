@@ -93,7 +93,7 @@ export const NavbarClasses = (props, colors, classes) => {
         'flex justify-center items-center h-full',
         leftClassName || leftClass
       ),
-      ios: 'me-2 transform transform-gpu',
+      ios: 'me-2 transform',
       material: 'mx-1',
     },
     title: {
@@ -102,7 +102,7 @@ export const NavbarClasses = (props, colors, classes) => {
         titleClassName || titleClass,
         (large || medium || transparent) && 'opacity-0',
         centerTitle
-          ? `absolute top-1/2 left-1/2 transform-gpu -translate-x-1/2 -translate-y-1/2 text-center`
+          ? `absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-center`
           : 'text-start'
       ),
       ios: cls(
@@ -128,7 +128,7 @@ export const NavbarClasses = (props, colors, classes) => {
         'flex justify-center items-center h-full',
         rightClassName || rightClass
       ),
-      ios: cls('transform transform-gpu', centerTitle ? 'ms-2' : 'ms-auto'),
+      ios: cls('transform', centerTitle ? 'ms-2' : 'ms-auto'),
       material: 'ms-auto me-1',
     },
   };
