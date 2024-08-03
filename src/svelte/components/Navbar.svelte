@@ -47,6 +47,8 @@
   export let ios = undefined;
   export let material = undefined;
 
+  let doc = null;
+
   let elRef = 0;
   let titleContainerHeight = 0;
   let bgElRef = null;
@@ -103,7 +105,7 @@
 
   const getScrollEl = () => {
     if (typeof scrollEl === 'undefined') {
-      return document
+      return doc
     }
     return scrollEl || scrollEl;
   };
@@ -207,6 +209,7 @@
     }
   });
   onMount(() => {
+    doc = document;
     calcSize();
     initScroll();
   });
