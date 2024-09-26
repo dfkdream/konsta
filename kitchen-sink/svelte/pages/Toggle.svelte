@@ -13,6 +13,8 @@
   let checked2 = true;
   let checked3 = true;
   let checked4 = true;
+
+  let checked = true;
 </script>
 
 <Page>
@@ -60,6 +62,27 @@
         checked={checked4}
         onChange={() => (checked4 = !checked4)}
       />
+    </ListItem>
+  </List>
+
+  <List strong inset>
+    <ListItem label title="Binded Item 1">
+      <Toggle
+        slot="after"
+        component="div"
+        class="-my-1"
+        bind:checked
+      />
+    </ListItem>
+    <ListItem label title="Binded Item 2">
+      <Toggle
+        slot="after"
+        component="div"
+        class="-my-1 k-color-brand-red"
+        bind:checked
+      />
+    </ListItem>
+    <ListItem label title="Binded value" after={checked.toString()}>
     </ListItem>
   </List>
 </Page>
