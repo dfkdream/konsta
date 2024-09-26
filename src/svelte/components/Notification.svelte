@@ -41,6 +41,8 @@
 </script>
 
 {#if theme === 'ios'}
+  <!-- svelte-ignore a11y-click-events-have-key-events -->
+  <!-- svelte-ignore a11y_no_static_element_interactions -->
   <div class={c.base} {...$$restProps} on:click={onClick}>
     <div class={c.header}>
       {#if $$slots.icon}
@@ -55,6 +57,7 @@
         </div>
       {/if}
       {#if button || $$slots.button}
+        <!-- svelte-ignore a11y-click-events-have-key-events -->
         <div class={c.button} role="button" tabindex="0" on:click={onClose}>
           <DeleteIcon {theme} class={c.deleteIcon} />
           <slot name="button" />
@@ -74,6 +77,8 @@
     </div>
   </div>
 {:else}
+  <!-- svelte-ignore a11y-click-events-have-key-events -->
+  <!-- svelte-ignore a11y_no_static_element_interactions -->
   <div class={c.base} {...$$restProps} on:click={onClick}>
     <div class={c.header}>
       {#if $$slots.icon}
@@ -103,6 +108,7 @@
         </div>
       </div>
       {#if button || $$slots.button}
+        <!-- svelte-ignore a11y-click-events-have-key-events -->
         <div class={c.button} role="button" tabindex="0" on:click={onClose}>
           <DeleteIcon {theme} class={c.deleteIcon} />
           <slot name="button" />

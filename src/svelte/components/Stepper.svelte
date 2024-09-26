@@ -127,6 +127,7 @@
 </script>
 
 <svelte:element this={component} class={classes} {...$$restProps}>
+  <!-- svelte-ignore a11y-click-events-have-key-events -->
   <span
     bind:this={buttonLeftEl.current}
     class={buttonLeftClasses}
@@ -134,7 +135,7 @@
     tabindex="0"
     on:click={onMinus}
   >
-    <span class={c.hBar} />
+    <span class={c.hBar}></span>
   </span>
   {#if input && !buttonsOnly}
     <input
@@ -154,6 +155,7 @@
     <span class={valueClasses}>{value}</span>
   {/if}
 
+  <!-- svelte-ignore a11y-click-events-have-key-events -->
   <span
     bind:this={buttonRightEl.current}
     class={buttonRightClasses}
@@ -161,7 +163,7 @@
     tabindex="0"
     on:click={onPlus}
   >
-    <span class={c.hBar} />
-    <span class={c.vBar} />
+    <span class={c.hBar}></span>
+    <span class={c.vBar}></span>
   </span>
 </svelte:element>

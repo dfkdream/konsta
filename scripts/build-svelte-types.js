@@ -3,6 +3,11 @@
 const fs = require('fs-extra');
 const path = require('path');
 
+const componentSvelteElementInheritance = {
+  Button: 'HTMLButtonAttributes',
+  Link: 'HTMLAnchorAttributes',
+};
+
 const componentNativeElementInheritance = {
   Actions: 'HTMLDivElement',
   ActionsButton: 'HTMLButtonElement',
@@ -18,13 +23,11 @@ const componentNativeElementInheritance = {
   BreadcrumbsCollapsed: 'HTMLDivElement',
   BreadcrumbsItem: 'HTMLDivElement',
   BreadcrumbsSeparator: 'HTMLDivElement',
-  Button: 'HTMLButtonElement',
   Card: 'HTMLDivElement',
   Checkbox: 'HTMLLabelElement',
   Chip: 'HTMLDivElement',
   Fab: 'HTMLAnchorElement',
   Icon: 'HTMLElement',
-  Link: 'HTMLAnchorElement',
   List: 'HTMLDivElement',
   ListButton: 'HTMLLIElement',
   ListGroup: 'HTMLLIElement',
@@ -69,7 +72,8 @@ const addOnClick = [
   'ActionsButton',
 ];
 
-const addOnClickProp = (componentName) => {
+const addOnClickProp = (componentName, content) => {
+  if (content.includes(' onClick?: ')) return '';
   if (addOnClick.includes(componentName))
     return `\n  onClick?: (e: any) => void;\n`;
   return '';
@@ -95,7 +99,8 @@ const createComponentTypes = (componentName, propsContent) => {
     .replace(
       'interface Props {',
       `export interface Props {\n  class?: string;${addOnClickProp(
-        componentName
+        componentName,
+        propsContent
       )}`
     )
     .replace(/ClassName/g, 'Class')
@@ -125,22 +130,31 @@ const createComponentTypes = (componentName, propsContent) => {
     })
     .join('\n');
   const slotsContent = slots.map((slot) => `'${slot}': {};`).join('\n    ');
+  const svelteElementType = componentSvelteElementInheritance[componentName];
+  const nativeElementType = componentNativeElementInheritance[componentName];
   return `
 import { SvelteComponent } from 'svelte';
-import { HTMLAttributes } from 'svelte/elements';
+${
+  svelteElementType
+    ? `import type { ${svelteElementType} } from 'svelte/elements';`
+    : `import { HTMLAttributes } from 'svelte/elements';`
+}
 
 ${propsContent}
 
 interface ${componentName}Props {}
 interface ${componentName}Props extends Props {}
+interface ${componentName}Events extends Record<'',{}>{}
 
 declare class ${componentName} extends SvelteComponent<
   ${componentName}Props${
-    componentNativeElementInheritance[componentName]
-      ? ` & HTMLAttributes<${componentNativeElementInheritance[componentName]}>`
-      : ''
+    svelteElementType
+      ? ` & ${svelteElementType}`
+      : nativeElementType
+        ? ` & HTMLAttributes<${nativeElementType}>`
+        : ''
   },
-  {  },
+  ${componentName}Events,
   {
     ${slotsContent}
   }

@@ -36,12 +36,15 @@
   );
 </script>
 
+<!-- svelte-ignore a11y-click-events-have-key-events -->
+<!-- svelte-ignore a11y_no_static_element_interactions -->
 <div class={c.base[style]} {...$$restProps} on:click={onClick}>
   {#if $$slots.media}
     <div class={c.media}><slot name="media" /></div>
   {/if}
   <slot />
   {#if deleteButton}
+    <!-- svelte-ignore a11y-click-events-have-key-events -->
     <div class={c.deleteButton} role="button" tabindex="0" on:click={onDelete}>
       <DeleteIcon {theme} class="h-4 w-4" />
     </div>
