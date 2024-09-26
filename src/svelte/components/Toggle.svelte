@@ -53,7 +53,7 @@
     {value}
     {disabled}
     {readonly}
-    {checked}
+    bind:checked
     on:change={onChange}
     class={c.input}
   />
