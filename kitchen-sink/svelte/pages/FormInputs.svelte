@@ -24,8 +24,8 @@
     demoValue = '';
   };
 
-  let bindedValue = "";
-  let bindedSelectValue = "Option 1";
+  let bindedValue = '';
+  let bindedSelectValue = 'Option 1';
 </script>
 
 <Page>
@@ -348,11 +348,37 @@
 
   <BlockTitle>Binded Inputs</BlockTitle>
   <List strongIos insetIos>
-    <ListInput label="Text" type="text" placeholder="Enter something" bind:value={bindedValue} />
-    <ListInput label="Password" type="password" placeholder="Enter something" bind:value={bindedValue} />
-    <ListInput label="Email" type="email" placeholder="Enter something" bind:value={bindedValue} />
-    <ListInput label="Validation" type="text" placeholder="Enter something" bind:value={bindedValue}
-      error={!bindedValue.trim()?"Please enter something":""}
+    <ListInput
+      label="Text"
+      type="text"
+      placeholder="Enter something"
+      bind:value={bindedValue}
+    />
+    <ListInput
+      label="Password"
+      type="password"
+      placeholder="Enter something"
+      bind:value={bindedValue}
+    />
+    <ListInput
+      label="Email"
+      type="email"
+      placeholder="Enter something"
+      bind:value={bindedValue}
+    />
+    <ListInput
+      label="Validation"
+      type="text"
+      placeholder="Enter something"
+      bind:value={bindedValue}
+      error={!bindedValue.trim() ? 'Please enter something' : ''}
+    />
+    <ListInput
+      label="Textarea"
+      type="textarea"
+      placeholder="Enter something"
+      inputClass="!h-20 resize-none"
+      bind:value={bindedValue}
     />
   </List>
 
@@ -369,7 +395,11 @@
       <option value="Option 1">Option 1</option>
       <option value="Option 2">Option 2</option>
     </ListInput>
-    <ListInput label="Current selection" type="text" placeholder="Enter something" bind:value={bindedSelectValue} />
+    <ListInput
+      label="Current selection"
+      type="text"
+      placeholder="Enter something"
+      bind:value={bindedSelectValue}
+    />
   </List>
-
 </Page>
